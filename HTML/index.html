@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutti Frutti Game</title>
+  <style>
+    /* Estilos CSS aquí */
+  </style>
+</head>
+<body>
+
+  <div id="game">
+    <h1>Tutti Frutti Game</h1>
+    <div id="categories"></div>
+    <div id="letter"></div>
+    <div id="timer"></div>
+    <div id="score"></div>
+    <button onclick="startRound()">Iniciar Ronda</button>
+    <button onclick="endGame()">Finalizar Juego</button>
+  </div>
+
+  <script>
+    // Variables del juego
+    let categories = ['Nombre', 'Apellido', 'País', 'Animal', 'Color', 'Fruta o Verdura', 'Cosa'];
+    let currentLetter = '';
+    let timer;
+    let totalTime = 60; // segundos
+    let score = {};
+
+    // Función para seleccionar aleatoriamente una letra
+    function getRandomLetter() {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      return alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
+
+    // Función para iniciar una nueva ronda
+    function startRound() {
+      // Reiniciar temporizador
+      clearInterval(timer);
+      timer = setInterval(updateTimer, 1000);
+      totalTime = 60;
+
+      // Seleccionar nueva letra
+      currentLetter = getRandomLetter();
+      document.getElementById('letter').innerText = `Letra: ${currentLetter}`;
+
+      // Mostrar categorías
+      displayCategories();
+
+      // Limpiar puntajes
+      score = {};
+      displayScore();
+    }
+
+    // Función para actualizar el temporizador
+    function updateTimer() {
+      if (totalTime > 0) {
+        totalTime--;
+        document.getElementById('timer').innerText = `Tiempo restante: ${totalTime}s`;
+      } else {
+        endRound();
+      }
+    }
+
+    // Función para finalizar una ronda
+    function endRound() {
+      clearInterval(timer);
+
+      // Calcular puntuación y mostrar resultados
+      calculateScore();
+      displayScore();
+    }
+
+    // Función para calcular la puntuación
+    function calculateScore() {
+      // Lógica de puntuación según las reglas
+      // Implementa la lógica según las reglas específicas del juego
+      // Aquí puedes validar las palabras, asignar puntos y penalizar repeticiones.
+    }
+
+    // Función para mostrar las categorías en la interfaz
+    function displayCategories() {
+      const categoriesElement = document.getElementById('categories');
+      categoriesElement.innerHTML = '<h3>Categorías:</h3>';
+      categories.forEach(category => {
+        categoriesElement.innerHTML += `<div>${category}: <input type="text" id="${category}"></div>`;
+      });
+    }
+
+    // Función para mostrar la puntuación en la interfaz
+    function displayScore() {
+      const scoreElement = document.getElementById('score');
+      scoreElement.innerHTML = '<h3>Puntuación:</h3>';
+      for (const category in score) {
+        scoreElement.innerHTML += `<div>${category}: ${score[category]}</div>`;
+      }
+    }
+
+    // Función para finalizar el juego y mostrar el ganador
+    function endGame() {
+      clearInterval(timer);
+      // Implementa la lógica para determinar al ganador y muestra el resultado.
+    }
+  </script>
+
+</body>
+</html>
